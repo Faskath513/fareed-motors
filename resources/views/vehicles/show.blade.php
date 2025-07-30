@@ -12,7 +12,7 @@
             <li><strong>Type:</strong> {{ $vehicle->vehicle_type }}</li>
             <li><strong>Price:</strong> ${{ number_format($vehicle->price, 2) }}</li>
             <li><strong>Mileage:</strong> {{ $vehicle->mileage }} km</li>
-            <li><strong>Condition:</strong> {{ $vehicle->condition }}</li>
+            <li><strong>Condition:</strong> {{ ucfirst($vehicle->condition) }}</li>
             <li><strong>Status:</strong> {{ ucfirst($vehicle->status) }}</li>
         </ul>
 

@@ -82,8 +82,11 @@
                 <!-- Condition -->
                 <div>
                     <label for="condition" class="block text-sm font-medium text-gray-700 mb-1">Condition</label>
-                    <input type="text" name="condition" id="condition" value="{{ old('condition', $vehicle->condition) }}" 
+                    <select id="condition" name="condition" 
                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="used" {{ old('condition', $vehicle->condition) == 'used' ? 'selected' : '' }}>Used</option>
+                        <option value="brandnew" {{ old('condition', $vehicle->condition) == 'brandnew' ? 'selected' : '' }}>Brand New</option>
+                    </select>
                 </div>
 
                 <!-- Status -->

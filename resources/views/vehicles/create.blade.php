@@ -17,7 +17,7 @@
     <form action="{{ route('vehicles.store') }}" method="POST" class="space-y-4">
         @csrf
 
-        @foreach (['make', 'model', 'year', 'vehicle_type', 'price', 'mileage', 'condition'] as $field)
+        @foreach (['make', 'model', 'year', 'vehicle_type', 'price', 'mileage', ] as $field)
             <div>
                 <label class="block font-medium capitalize" for="{{ $field }}">{{ str_replace('_', ' ', $field) }}</label>
                 <input type="{{ in_array($field, ['year', 'price', 'mileage']) ? 'number' : 'text' }}"
@@ -28,7 +28,17 @@
                        required>
             </div>
         @endforeach
-
+        <div>
+            <label class="block font-medium" for="condition">Condition</label>
+            <select name="condition" id="condition" class="w-full border border-gray-300 rounded px-3 py-2" required>
+                <option value="">-- Select Condition --</option>
+                @foreach (['used', 'brandnew'] as $condition)
+                    <option value="{{ $condition }}" {{ old('condition') == $condition ? 'selected' : '' }}>
+                        {{ ucfirst($condition) }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
         <div>
             <label class="block font-medium" for="status">Status</label>
             <select name="status" id="status" class="w-full border border-gray-300 rounded px-3 py-2" required>

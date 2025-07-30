@@ -27,7 +27,7 @@ class VehicleController extends Controller
             'vehicle_type' => 'required|string|max:100',
             'price' => 'required|numeric|min:0',
             'mileage' => 'nullable|integer|min:0',
-            'condition' => 'required|string|max:255',
+            'condition' => 'required|in:used,brandnew,',
             'status' => 'required|in:available,sold,reserved',
         ]);
 
@@ -55,7 +55,7 @@ class VehicleController extends Controller
             'vehicle_type' => 'required|string|max:100',
             'price' => 'required|numeric|min:0',
             'mileage' => 'nullable|integer|min:0',
-            'condition' => 'required|string|max:255',
+            'condition' => 'required|in:used,brandnew,',
             'status' => 'required|in:available,sold,reserved',
         ]);
 

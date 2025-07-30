@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('vehicle_type'); // car, bike, van, etc.
             $table->decimal('price', 12, 2);
             $table->integer('mileage')->default(0);
-            $table->string('condition');    // e.g. good, excellent, fair
+            $table->enum('condition', ['used', 'brandnew'])->default('brandnew');
             $table->enum('status', ['available', 'sold', 'reserved'])->default('available');
             $table->timestamps();
         });

@@ -11,9 +11,10 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Sale</label>
                 <select name="sale_id" required class="w-full border-gray-300 rounded-md shadow-sm">
-                    @foreach ($payments->pluck('sale')->unique() as $sale)
+                    <option value="">-- Select Sale --</option>
+                    @foreach ($sales as $sale)
                         <option value="{{ $sale->id }}">
-                            {{ $sale->customer->name }} - {{ $sale->vehicle->model }}
+                            {{ $sale->customer->name }} - {{ $sale->vehicle->model ?? 'No vehicle' }}
                         </option>
                     @endforeach
                 </select>
@@ -41,7 +42,7 @@
         </div>
 
         <div class="pt-4">
-            <button class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md transition">
+            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md transition">
                 Add Payment
             </button>
         </div>
@@ -61,7 +62,9 @@
             <tbody class="text-sm text-gray-800">
                 @forelse ($payments as $payment)
                     <tr class="hover:bg-gray-50 transition">
-                        <td class="px-4 py-2 border-b">{{ $payment->sale->customer->name }} - {{ $payment->sale->vehicle->model }}</td>
+                        <td class="px-4 py-2 border-b">
+                            {{ $payment->sale->customer->name ?? 'N/A' }} - {{ $payment->sale->vehicle->model ?? 'N/A' }}
+                        </td>
                         <td class="px-4 py-2 border-b">{{ \Carbon\Carbon::parse($payment->payment_date)->format('Y-m-d') }}</td>
                         <td class="px-4 py-2 border-b">${{ number_format($payment->amount, 2) }}</td>
                         <td class="px-4 py-2 border-b">{{ ucfirst($payment->payment_method) }}</td>
