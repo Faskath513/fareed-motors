@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto py-8 px-4">
+<div class="container mx-auto py-8 px-4 max-w-3xl">
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-3xl font-semibold">Edit Vehicle</h1>
         <a href="{{ route('vehicles.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100">
-            <!-- You can replace this SVG with your own icon or remove it -->
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
@@ -25,61 +24,54 @@
     @endif
 
     <div class="bg-white shadow rounded-lg p-6">
-        <form action="{{ route('vehicles.update', $vehicle) }}" method="POST" class="space-y-6">
+        <form action="{{ route('vehicles.update', $vehicle) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <!-- Make -->
                 <div>
                     <label for="make" class="block text-sm font-medium text-gray-700 mb-1">Make</label>
                     <input type="text" name="make" id="make" value="{{ old('make', $vehicle->make) }}" 
                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>
 
-                <!-- Model -->
                 <div>
                     <label for="model" class="block text-sm font-medium text-gray-700 mb-1">Model</label>
                     <input type="text" name="model" id="model" value="{{ old('model', $vehicle->model) }}" 
                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>
 
-                <!-- Year -->
                 <div>
                     <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Year</label>
                     <input type="number" name="year" id="year" value="{{ old('year', $vehicle->year) }}" 
                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>
 
-                <!-- Vehicle Type -->
                 <div>
                     <label for="vehicle_type" class="block text-sm font-medium text-gray-700 mb-1">Vehicle Type</label>
                     <input type="text" name="vehicle_type" id="vehicle_type" value="{{ old('vehicle_type', $vehicle->vehicle_type) }}" 
                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>
 
-                <!-- Price -->
                 <div>
                     <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Price</label>
                     <div class="relative rounded-md shadow-sm">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</div>
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">Rs.</div>
                         <input type="number" step="0.01" name="price" id="price" value="{{ old('price', $vehicle->price) }}" 
-                            class="block w-full rounded-md border border-gray-300 pl-7 pr-3 py-2 focus:border-indigo-500 focus:ring-indigo-500">
+                            class="block w-full rounded-md border border-gray-300 pl-10 pr-3 py-2 focus:border-indigo-500 focus:ring-indigo-500">
                     </div>
                 </div>
 
-                <!-- Mileage -->
                 <div>
                     <label for="mileage" class="block text-sm font-medium text-gray-700 mb-1">Mileage</label>
                     <div class="relative rounded-md shadow-sm">
                         <input type="number" name="mileage" id="mileage" value="{{ old('mileage', $vehicle->mileage) }}" 
                             class="block w-full rounded-md border border-gray-300 pr-10 py-2 focus:border-indigo-500 focus:ring-indigo-500">
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">mi</div>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">km</div>
                     </div>
                 </div>
 
-                <!-- Condition -->
                 <div>
                     <label for="condition" class="block text-sm font-medium text-gray-700 mb-1">Condition</label>
                     <select id="condition" name="condition" 
@@ -89,7 +81,6 @@
                     </select>
                 </div>
 
-                <!-- Status -->
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
                     <select id="status" name="status" 
@@ -99,6 +90,15 @@
                         <option value="reserved" {{ old('status', $vehicle->status) == 'reserved' ? 'selected' : '' }}>Reserved</option>
                     </select>
                 </div>
+
+                <div>
+                    <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Vehicle Image</label>
+                    <input type="file" name="image" id="image" accept="image/*" class="block w-full text-sm text-gray-500">
+                    @if($vehicle->image_path)
+                        <img src="{{ asset('storage/' . $vehicle->image_path) }}" alt="Vehicle Image" class="mt-2 max-h-40 rounded">
+                    @endif
+                </div>
+
             </div>
 
             <div class="pt-6">

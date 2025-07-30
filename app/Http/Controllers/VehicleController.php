@@ -27,10 +27,14 @@ class VehicleController extends Controller
             'vehicle_type' => 'required|string|max:100',
             'price' => 'required|numeric|min:0',
             'mileage' => 'nullable|integer|min:0',
-            'condition' => 'required|in:used,brandnew,',
+            'condition' => 'required|in:used,brandnew',
             'status' => 'required|in:available,sold,reserved',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', // Optional image validation
         ]);
-
+        if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('vehicles', 'public');
+        $validated['image_path'] = $imagePath;
+    }
         Vehicle::create($validated);
 
         return redirect()->route('vehicles.index')->with('success', 'Vehicle added successfully.');
@@ -55,9 +59,15 @@ class VehicleController extends Controller
             'vehicle_type' => 'required|string|max:100',
             'price' => 'required|numeric|min:0',
             'mileage' => 'nullable|integer|min:0',
-            'condition' => 'required|in:used,brandnew,',
+            'condition' => 'required|in:used,brandnew',
             'status' => 'required|in:available,sold,reserved',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('vehicles', 'public');
+            $validated['image_path'] = $imagePath;
+        }
 
         $vehicle->update($validated);
 

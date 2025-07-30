@@ -16,6 +16,7 @@ class Vehicle extends Model
         'mileage',
         'condition',
         'status',
+        'image_path',
     ];
 
     // Optionally, cast year to integer and price to decimal

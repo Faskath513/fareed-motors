@@ -33,6 +33,10 @@ class SaleController extends Controller
         ]);
 
         Sale::create($validated);
+        $vehicle = Vehicle::findOrFail($validated['vehicle_id']);
+        $vehicle->status = 'sold';
+        $vehicle->save();
+
         return redirect()->route('sales.index')->with('success', 'Sale recorded.');
     }
 

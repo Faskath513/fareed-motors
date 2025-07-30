@@ -14,10 +14,10 @@
         </div>
     @endif
 
-    <form action="{{ route('vehicles.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('vehicles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
 
-        @foreach (['make', 'model', 'year', 'vehicle_type', 'price', 'mileage', ] as $field)
+        @foreach (['make', 'model', 'year', 'vehicle_type', 'price', 'mileage'] as $field)
             <div>
                 <label class="block font-medium capitalize" for="{{ $field }}">{{ str_replace('_', ' ', $field) }}</label>
                 <input type="{{ in_array($field, ['year', 'price', 'mileage']) ? 'number' : 'text' }}"
@@ -28,6 +28,7 @@
                        required>
             </div>
         @endforeach
+
         <div>
             <label class="block font-medium" for="condition">Condition</label>
             <select name="condition" id="condition" class="w-full border border-gray-300 rounded px-3 py-2" required>
@@ -39,6 +40,7 @@
                 @endforeach
             </select>
         </div>
+
         <div>
             <label class="block font-medium" for="status">Status</label>
             <select name="status" id="status" class="w-full border border-gray-300 rounded px-3 py-2" required>
@@ -49,6 +51,11 @@
                     </option>
                 @endforeach
             </select>
+        </div>
+
+        <div>
+            <label class="block font-medium" for="image">Vehicle Image (optional)</label>
+            <input type="file" name="image" id="image" class="w-full border border-gray-300 rounded px-3 py-2" accept="image/*">
         </div>
 
         <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Save Vehicle</button>

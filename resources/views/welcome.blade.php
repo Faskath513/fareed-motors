@@ -37,6 +37,18 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 @foreach ($availableVehicles as $vehicle)
                     <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6">
+                       @if($vehicle->image_path)
+                            <img 
+                                src="{{ asset('storage/' . $vehicle->image_path) }}" 
+                                alt="{{ $vehicle->make }} {{ $vehicle->model }}" 
+                                class="w-full h-56 object-cover object-center rounded mb-4"
+                                style="max-height: 224px;" 
+                            >
+                        @else
+                            <div class="w-full h-56 bg-gray-200 flex items-center justify-center rounded mb-4 text-gray-400">
+                                No Image
+                            </div>
+                        @endif
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">
                             {{ $vehicle->make }} {{ $vehicle->model }}
                         </h3>
